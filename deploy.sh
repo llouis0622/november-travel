@@ -11,14 +11,14 @@ fi
 repo="$owner/november-travel"
 python3 build.py
 touch dist/.nojekyll
-for test in test-engine.js test-gestures.js test-playback.js test-ui-state.js test-workspace-ui.js test-editing.js; do
+for test in test-engine.js test-gestures.js test-playback.js test-ui-state.js test-workspace-ui.js test-editing.js test-responsive.js; do
   node "$test"
 done
 python3 test-presentation.py
 if [ ! -d .git ]; then git init -b main; fi
 git add .gitignore README.md deploy.sh build.py ui.css ui.js engine.js data.json map-fragment.html dist test-*.js test-presentation.py
 if ! git diff --cached --quiet; then
-  git -c user.name="$owner" -c user.email="$owner@users.noreply.github.com" commit -m 'Publish November travel planner'
+  git -c user.name="$owner" -c user.email="$owner@users.noreply.github.com" commit -m 'Improve responsive travel workspace'
 fi
 if ! git remote get-url origin >/dev/null 2>&1; then
   # Fails safely if that name already exists; never attaches to an unrelated repository.
